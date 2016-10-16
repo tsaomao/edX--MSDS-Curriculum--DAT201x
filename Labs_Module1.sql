@@ -16,7 +16,9 @@ SELECT SalesPerson, ISNULL(Title, '') + ' ' + ISNULL(Lastname, '') AS CustomerNa
 FROM SalesLT.Customer
 ORDER BY SalesPerson;
 
-/* --------------------------------------------- *//* Challenge 2: Retrieve Customer and Sales Data *//* 1. Retrieve a list of Customer companies */
+/* --------------------------------------------- */
+/* Challenge 2: Retrieve Customer and Sales Data */
+/* 1. Retrieve a list of Customer companies */
 SELECT ISNULL(TRY_CAST(CustomerID AS nvarchar), '') + ': ' + CompanyName
 FROM SalesLT.Customer;
 
