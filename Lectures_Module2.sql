@@ -45,4 +45,3 @@ SELECT Name, ListPrice From SalesLT.Product ORDER BY ProductNumber OFFSET 10 ROW
 
 
 
-
