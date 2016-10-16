@@ -18,3 +18,31 @@ SELECT ProductCategoryID AS Category, Name
 FROM SalesLT.Product
 ORDER BY Category, ListPrice DESC;
 
+/* DEMO 1 */
+/* Start/basic query from first demo */
+/* Display a list of product colors */
+SELECT ISNULL(Color, 'None') AS Color FROM SalesLT.Product;
+
+/* First modification, show only unique colors */
+SELECT DISTINCT ISNULL(Color, 'None') AS Color FROM SalesLT.Product;
+
+/* Second modification, Alpha sort on Color name */
+SELECT DISTINCT ISNULL(Color, 'None') AS Color FROM SalesLT.Product ORDER BY Color;
+
+/* Third modification, Alpha sort on Color name, also Size */
+/* Note how DISTINCT selects distinct rows among the results */
+SELECT DISTINCT ISNULL(Color, 'None') AS Color, ISNULL(Size, '-') AS Size FROM SalesLT.Product ORDER BY Color;
+
+/* TOP example */
+SELECT TOP 100 Name, ListPrice FROM SalesLT.Product ORDER BY ListPrice DESC;
+
+/* First 10 products by product number */
+SELECT Name, ListPrice From SalesLT.Product ORDER BY ProductNumber OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
+/* Next 10 products by product number */
+/* FIRST / NEXT and ROW / ROWS are interchangeable in the syntax */
+SELECT Name, ListPrice From SalesLT.Product ORDER BY ProductNumber OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;
+
+
+
+
