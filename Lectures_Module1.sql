@@ -1,4 +1,4 @@
-/* EdX.org - DAT201x - Module 2 - Lecture Queries */
+/* EdX.org - DAT201x - Module 1 - Lecture Queries */
 /* CAST or CONVERT required to concatenate text with numeric datatype */
 SELECT CAST(ProductID AS varchar(5)) + ': ' + Name AS ProductName
 FROM SalesLT.Product;
