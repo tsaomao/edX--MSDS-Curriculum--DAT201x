@@ -44,7 +44,8 @@ ORDER BY oh.SalesOrderID DESC;
 /* 2. Retrieve a list of customers with no address */
 -- A sales employee has noticed that Adventure Works does not have address information for all
 -- customers. You must write a query that returns a list of customer IDs, company names, contact names
--- (first name and last name), and phone numbers for customers with no address stored in the database.SELECT c.CustomerID, c.CompanyName, c.FirstName, c.LastName, c.Phone
+-- (first name and last name), and phone numbers for customers with no address stored in the database.
+SELECT c.CustomerID, c.CompanyName, c.FirstName, c.LastName, c.Phone
 FROM SalesLT.Customer AS c
 LEFT JOIN SalesLT.CustomerAddress AS ca
 ON c.CustomerID = ca.CustomerID
@@ -55,7 +56,8 @@ WHERE ca.CustomerID IS NULL;
 -- that returns a column of customer IDs for customers who have never placed an order, and a column of
 -- product IDs for products that have never been ordered. Each row with a customer ID should have a
 -- NULL product ID (because the customer has never ordered a product) and each row with a product ID
--- should have a NULL customer ID (because the product has never been ordered by a customer).SELECT c.CustomerID, p.ProductID
+-- should have a NULL customer ID (because the product has never been ordered by a customer).
+SELECT c.CustomerID, p.ProductID
 FROM SalesLT.Customer AS c
 FULL OUTER JOIN SalesLT.SalesOrderHeader AS oh
 ON c.CustomerID = oh.CustomerID
