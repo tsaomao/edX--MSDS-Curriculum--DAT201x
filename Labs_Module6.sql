@@ -53,10 +53,38 @@ the SalesLT.SalesOrderHeader table and the dbo.ufnGetCustomerInformation functio
 SELECT oh.SalesOrderID, oh.CustomerID, 
 	(SELECT c1.FirstName FROM dbo.ufnGetCustomerInformation(oh.CustomerID) AS c1) AS FirstName, 
 	(SELECT c2.LastName FROM dbo.ufnGetCustomerInformation(oh.CustomerID) AS c2) AS LastName, oh.TotalDue
-FROM SalesLT.SalesOrderHeader as oh;
+FROM SalesLT.SalesOrderHeader as oh
+ORDER BY oh.SalesOrderID;
+
+-- Do with CROSS APPLY
+SELECT oh.SalesOrderID, oh.CustomerID, ci.FirstName, ci.LastName, oh.TotalDue
+FROM SalesLT.SalesOrderHeader AS oh
+CROSS APPLY dbo.ufnGetCustomerInformation(oh.CustomerID) AS ci
+ORDER BY oh.SalesOrderID;
+
 
 
 /* 2. Retrieve customer address information
 Retrieve the customer ID, first name, last name, address line 1 and city for all customers from the
 SalesLT.Address and SalesLT.CustomerAddress tables, and the dbo.ufnGetCustomerInformation
-function. */
+function. */
+-- Note: Returning null rows for first 33.
+SELECT 
+	ca.CustomerID,
+	(SELECT c1.FirstName FROM dbo.ufnGetCustomerInformation(ca.CustomerID) AS c1) AS FirstName,
+	(SELECT c2.LastName FROM dbo.ufnGetCustomerInformation(ca.CustomerID) AS c2) AS LastName,
+	(SELECT DISTINCT a.AddressLine1 FROM SalesLT.Address WHERE ca.AddressID = a.AddressID) AS AddressLine1,
+	(SELECT DISTINCT a.City FROM SalesLT.Address WHERE ca.AddressID = a.AddressID) AS City
+FROM SalesLT.Address AS a	
+LEFT JOIN SalesLT.CustomerAddress AS ca
+ON ca.AddressID = a.AddressID
+ORDER BY ca.CustomerID;
+
+-- Do with CROSS APPLY
+SELECT ca.CustomerID, ci.FirstName, ci.LastName, a.AddressLine1, a.City
+FROM SalesLT.Address AS a
+JOIN SalesLT.CustomerAddress AS ca
+ON a.AddressID = ca.AddressID
+CROSS APPLY dbo.ufnGetCustomerInformation(ca.CustomerID) AS ci
+ORDER BY ca.CustomerID;
+
