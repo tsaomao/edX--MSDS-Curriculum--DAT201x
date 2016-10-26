@@ -47,6 +47,14 @@ LEFT JOIN SalesLT.Product AS p
 ON p.ProductCategoryID = cat.ProductCategoryID
 GROUP BY ROLLUP (cat.ParentProductCategoryName, cat.ProductCategoryName)
 ORDER BY cat.ParentProductCategoryName, cat.ProductCategoryName;
+-- NOTE: A GROUPING SETS syntax to replicate GROUP BY ROLLUP
+SELECT cat.ParentProductCategoryName, cat.ProductCategoryName, COUNT(p.ProductID) AS Products
+FROM SalesLT.vGetAllCategories AS cat
+LEFT JOIN SalesLT.Product AS p
+ON p.ProductCategoryID = cat.ProductCategoryID
+GROUP BY GROUPING SETS(cat.ParentProductCategoryName, (cat.ParentProductCategoryName, cat.ProductCategoryName), ())
+ORDER BY cat.ParentProductCategoryName, cat.ProductCategoryName;
+
 
 -- CUBE
 SELECT cat.ParentProductCategoryName, cat.ProductCategoryName, COUNT(p.ProductID) AS Products
